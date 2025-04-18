@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gin Cocktail Flashcards</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom, #fafafa, #e0e0e0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .flashcard {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 600px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: left;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+    .card-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .flashcard.show .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+    }
+    .card-front {
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 1rem;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .card-back {
+      background: #ffffff;
+      transform: rotateY(180deg);
+      padding: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .cocktail-section {
+      margin-bottom: 1rem;
+    }
+    .cocktail-section strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gin Cocktail Flashcards</h1>
+  <div id="flashcard-container"></div>
+  <script>
+    // Cocktail content has been dynamically generated earlier
+  </script>
+</body>
+</html>

@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gin Cocktail Flashcards</title>
   <style>
     body {
@@ -24,6 +25,7 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       width: 90%;
       max-width: 600px;
+      height: auto;
       padding: 2rem;
       margin: 1rem 0;
       text-align: left;
@@ -34,6 +36,7 @@
       transition: transform 0.6s;
       transform-style: preserve-3d;
       position: relative;
+      min-height: 200px;
     }
     .flashcard.show .card-inner {
       transform: rotateY(180deg);
@@ -43,21 +46,20 @@
       width: 100%;
       backface-visibility: hidden;
       border-radius: 16px;
+      padding: 1.5rem;
+      box-sizing: border-box;
     }
     .card-front {
       font-weight: bold;
       font-size: 1.5rem;
-      padding: 1rem;
       background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
     }
     .card-back {
       background: #ffffff;
       transform: rotateY(180deg);
-      padding: 1.5rem;
       font-size: 1rem;
       line-height: 1.6;
     }
@@ -68,12 +70,14 @@
       display: block;
       margin-bottom: 0.5rem;
     }
+    ul {
+      padding-left: 1.2rem;
+    }
   </style>
 </head>
 <body>
   <h1>Gin Cocktail Flashcards</h1>
   <div id="flashcard-container"></div>
-  
   <script>
     const cocktails = [
       {
@@ -201,6 +205,5 @@
       container.appendChild(card);
     });
   </script>
-
 </body>
 </html>

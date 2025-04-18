@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gin Cocktail Flashcards</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .flashcard {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 600px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .flashcard:hover {
+      transform: scale(1.02);
+    }
+    .cocktail-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .cocktail-details {
+      display: none;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .show .cocktail-details {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gin Cocktail Flashcards</h1>
+  <div id="flashcard-container"></div>
+  <script>
+    const cocktails = [
+      {
+        name: "Gin Basil Smash",
+        details: "2 oz London Dry Gin, 1 oz fresh lemon juice, 2/3 oz simple syrup, 10 fresh basil leaves. Muddle basil with lemon juice, add gin and syrup, shake with ice, double strain into glass. Garnish with basil sprig."
+      },
+      {
+        name: "Last Word",
+        details: "¾ oz gin, ¾ oz green Chartreuse, ¾ oz maraschino liqueur, ¾ oz fresh lime juice. Shake with ice, strain into chilled cocktail glass. No garnish."
+      },
+      {
+        name: "Enzoni",
+        details: "1 oz gin, 1 oz Campari, 1 oz fresh lemon juice, ¾ oz simple syrup, 5 green grapes. Muddle grapes, add ingredients, shake with ice, double strain into rocks glass. Garnish with grape skewer."
+      },
+      {
+        name: "Ramos Gin Fizz",
+        details: "2 oz gin, ½ oz lemon juice, ½ oz lime juice, 1 oz simple syrup, 1 oz cream, 1 egg white, 2 dashes orange flower water, soda. Dry shake, then shake with ice, strain into Collins glass, top with soda. No garnish."
+      },
+      {
+        name: "French 75",
+        details: "1 oz gin, ½ oz lemon juice, ½ oz simple syrup, Champagne. Shake first 3 with ice, strain into flute, top with Champagne. Garnish with lemon twist."
+      },
+      {
+        name: "Fitzgerald",
+        details: "2 oz gin, ¾ oz lemon juice, ¾ oz simple syrup, 2 dashes Angostura bitters. Shake with ice, strain into chilled glass. Garnish with lemon twist."
+      },
+      {
+        name: "Aviation",
+        details: "2 oz gin, ½ oz maraschino liqueur, ¼ oz crème de violette, ¾ oz lemon juice. Shake with ice, strain into chilled glass. Garnish with cherry or lemon twist."
+      },
+      {
+        name: "Clover Club",
+        details: "1½ oz gin, ½ oz dry vermouth, ¾ oz lemon juice, ½ oz raspberry syrup, egg white. Dry shake, then shake with ice, strain into glass. Garnish with raspberry or lemon twist."
+      },
+      {
+        name: "Bramble",
+        details: "1½ oz gin, ¾ oz lemon juice, ½ oz simple syrup, ½ oz crème de mûre. Shake first 3 with ice, strain into rocks glass over crushed ice, drizzle crème de mûre. Garnish with blackberry and lemon slice."
+      },
+      {
+        name: "Corpse Reviver No. 2",
+        details: "¾ oz gin, ¾ oz Cointreau, ¾ oz Lillet Blanc, ¾ oz lemon juice, dash of absinthe. Shake with ice, strain into absinthe-rinsed glass. No garnish."
+      },
+      {
+        name: "Singapore Sling",
+        details: "1½ oz gin, ½ oz cherry brandy, ¼ oz Cointreau, ¼ oz Bénédictine, 4 oz pineapple juice, ½ oz lime juice, dash Angostura. Shake with ice, strain into tall glass. Garnish with cherry and pineapple."
+      },
+      {
+        name: "White Lady",
+        details: "1½ oz gin, ¾ oz triple sec, ¾ oz lemon juice, egg white (optional). Shake (dry then ice), strain into chilled glass. Garnish with lemon twist."
+      },
+      {
+        name: "Vesper",
+        details: "1½ oz gin, ¾ oz vodka, ¼ oz Lillet Blanc. Stir with ice or shake, strain into chilled glass. Garnish with lemon twist."
+      },
+      {
+        name: "White Negroni",
+        details: "1 oz gin, 1 oz Suze, 1 oz Lillet Blanc. Stir with ice, strain into rocks glass over ice. Garnish with lemon twist."
+      },
+      {
+        name: "Gimlet",
+        details: "2 oz gin, ¾ oz lime juice, ¾ oz simple syrup. Shake with ice, strain into cocktail glass. Garnish with lime wheel."
+      },
+      {
+        name: "Hand Grenade",
+        details: "1 oz gin, 1 oz vodka, 1 oz rum, 1 oz melon liqueur, 1 oz pineapple juice. Shake with ice, strain into hurricane glass. Garnish with cherry or citrus wedge."
+      },
+      {
+        name: "Army & Navy",
+        details: "2 oz gin, ¾ oz lemon juice, ¾ oz orgeat syrup, dash Angostura bitters. Shake with ice, strain into chilled glass. Garnish with lemon twist."
+      },
+      {
+        name: "Bee's Knees",
+        details: "2 oz gin, ¾ oz lemon juice, ¾ oz honey syrup. Shake with ice, strain into cocktail glass. Garnish with lemon twist."
+      },
+      {
+        name: "Tokyo Iced Tea",
+        details: "½ oz gin, ½ oz vodka, ½ oz rum, ½ oz tequila, ½ oz Midori, 1 oz sweet & sour, splash of lemon-lime soda. Shake with ice, strain into tall glass, top with soda. Garnish with lemon."
+      },
+      {
+        name: "Gin & It",
+        details: "1½ oz gin, 1½ oz sweet vermouth. Stir with ice, strain into chilled glass. Garnish with orange twist."
+      }
+    ];
+
+    const container = document.getElementById("flashcard-container");
+
+    cocktails.forEach(cocktail => {
+      const card = document.createElement("div");
+      card.className = "flashcard";
+      card.innerHTML = `<div class="cocktail-name">${cocktail.name}</div><div class="cocktail-details">${cocktail.details}</div>`;
+      card.addEventListener("click", () => card.classList.toggle("show"));
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>

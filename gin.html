@@ -25,16 +25,18 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 600px;
+      height: 300px;
       margin: 1rem 0;
       text-align: left;
       cursor: pointer;
       perspective: 1000px;
     }
     .card-inner {
+      width: 100%;
+      height: 100%;
       transition: transform 0.6s;
       transform-style: preserve-3d;
       position: relative;
-      min-height: 250px;
     }
     .flashcard.show .card-inner {
       transform: rotateY(180deg);
@@ -42,19 +44,22 @@
     .card-front, .card-back {
       position: absolute;
       width: 100%;
+      height: 100%;
       backface-visibility: hidden;
       border-radius: 16px;
       padding: 1.5rem;
       box-sizing: border-box;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+      overflow: hidden;
     }
     .card-front {
       font-weight: bold;
       font-size: 1.5rem;
       background: #ffffff;
+      text-align: center;
     }
     .card-back {
       background: #ffffff;
@@ -64,6 +69,7 @@
       text-align: left;
       justify-content: flex-start;
       align-items: flex-start;
+      overflow-y: auto;
     }
     .cocktail-section {
       margin-bottom: 1rem;
@@ -83,7 +89,96 @@
   <h1>Gin Cocktail Flashcards</h1>
   <div id="flashcard-container"></div>
   <script>
-    const cocktails = [...]; // Cocktail data goes here — not repeating for brevity
+    const cocktails = [
+  {
+    "name": "Gin Basil Smash",
+    "ingredients": [
+      "2 oz London Dry Gin",
+      "1 oz fresh lemon juice",
+      "2/3 oz simple syrup",
+      "10 fresh basil leaves"
+    ],
+    "method": "Muddle basil with lemon juice. Add gin and syrup. Shake with ice and double strain into a glass. Garnish with basil sprig."
+  },
+  {
+    "name": "Last Word",
+    "ingredients": [
+      "\u00be oz gin",
+      "\u00be oz green Chartreuse",
+      "\u00be oz maraschino liqueur",
+      "\u00be oz fresh lime juice"
+    ],
+    "method": "Shake all ingredients with ice. Strain into a chilled cocktail glass. No garnish."
+  },
+  {
+    "name": "Enzoni",
+    "ingredients": [
+      "1 oz gin",
+      "1 oz Campari",
+      "1 oz fresh lemon juice",
+      "\u00be oz simple syrup",
+      "5 green grapes"
+    ],
+    "method": "Muddle grapes. Add remaining ingredients and ice. Shake and double strain into a rocks glass. Garnish with grape skewer."
+  },
+  {
+    "name": "Ramos Gin Fizz",
+    "ingredients": [
+      "2 oz gin",
+      "\u00bd oz lemon juice",
+      "\u00bd oz lime juice",
+      "1 oz simple syrup",
+      "1 oz cream",
+      "1 egg white",
+      "2 dashes orange flower water",
+      "Soda water"
+    ],
+    "method": "Dry shake all ingredients (except soda). Add ice and shake. Strain into a Collins glass and top with soda."
+  },
+  {
+    "name": "French 75",
+    "ingredients": [
+      "1 oz gin",
+      "\u00bd oz lemon juice",
+      "\u00bd oz simple syrup",
+      "Champagne"
+    ],
+    "method": "Shake first 3 with ice. Strain into flute and top with Champagne. Garnish with lemon twist."
+  },
+  {
+    "name": "Fitzgerald",
+    "ingredients": [
+      "2 oz gin",
+      "\u00be oz lemon juice",
+      "\u00be oz simple syrup",
+      "2 dashes Angostura bitters"
+    ],
+    "method": "Shake with ice. Strain into chilled glass. Garnish with lemon twist."
+  }
+];
+
+    const container = document.getElementById("flashcard-container");
+
+    cocktails.forEach(({ name, ingredients, method }) => {
+      const card = document.createElement("div");
+      card.className = "flashcard";
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-front">${name}</div>
+          <div class="card-back">
+            <div class="cocktail-section">
+              <strong>Ingredients:</strong>
+              <ul>${ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+            <div class="cocktail-section">
+              <strong>Method:</strong>
+              <p>${method}</p>
+            </div>
+          </div>
+        </div>`;
+      card.addEventListener("click", () => card.classList.toggle("show"));
+      container.appendChild(card);
+    });
   </script>
 </body>
 </html>
